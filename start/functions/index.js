@@ -71,15 +71,6 @@ const updateWordToDisplay = (conv, letterOrWord) => {
   }
  }
 
- const firebaseConfig = JSON.parse(process.env.FIREBASE_CONFIG);
-
- app.intent('Welcome', (conv) => {
-  conv.ask(`Welcome to Snowman! Would you like to start playing the game?`);
-  conv.ask(new HtmlResponse({
-    url: `https://${firebaseConfig.projectId}.firebaseapp.com`,
-  }));
-});
-
 app.intent('Fallback', (conv) => {
   conv.ask(`I don’t understand. Try guessing a letter!`);
   conv.ask(new HtmlResponse());

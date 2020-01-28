@@ -20,7 +20,6 @@ const functions = require('firebase-functions');
 const {dialogflow, HtmlResponse} = require('actions-on-google');
 const Dictionary = require('./util/dictionary.js');
 
-const firebaseConfig = JSON.parse(process.env.FIREBASE_CONFIG);
 const app = dialogflow({debug: true});
 
 const MAX_INCORRECT_GUESSES = 5;
@@ -94,8 +93,9 @@ app.intent('Welcome', (conv) => {
   } else {
     conv.ask(`Welcome to Snowman! Would you like to start playing the game?`);
   }
+  // Replace `PROJECT_ID` with the ID for your project.
   conv.ask(new HtmlResponse({
-    url: `https://${firebaseConfig.projectId}.firebaseapp.com`,
+    url: `https://PROJECT_ID.firebaseapp.com`,
   }));
 });
 
