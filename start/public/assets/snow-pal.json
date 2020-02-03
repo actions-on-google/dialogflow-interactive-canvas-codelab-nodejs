@@ -1,7 +1,7 @@
 {
 	"textures": [
 		{
-			"image": "snowman.png",
+			"image": "snow-pal.png",
 			"format": "RGBA8888",
 			"size": {
 				"w": 695,

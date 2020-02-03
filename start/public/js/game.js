@@ -41,7 +41,7 @@ window.onload = () => {
 };
 
 /**
- * Represent Snowman game scene.
+ * Represent Snow Pal game scene.
  */
 export default class Main extends Phaser.Scene {
   /**
@@ -63,7 +63,7 @@ export default class Main extends Phaser.Scene {
           '/assets/fonts/bitmap/google-sans-font.xml');
       this.load.image('background', '/assets/background.png');
       this.load.path = '/assets/';
-      this.load.multiatlas('snowman', ['./snowman.json']);
+      this.load.multiatlas('snow-pal', ['./snow-pal.json']);
       this.load.multiatlas('win_lose', ['./win-lose.json']);
 
       // Sounds
@@ -119,37 +119,37 @@ export default class Main extends Phaser.Scene {
       this.startButton = new Phaser.GameObjects.Text(this, 0, this.scale.height / 2, 'Start Game', {fontSize: 75, fill: '#000'});
       this.startButton.x = (this.scale.width / 2) - (this.startButton.width / 2);
       this.startButton
-      .setInteractive({ useHandCursor: true })
-      .on('pointerover', () => this.startButton.setStyle({fill: '#ff0'}))
-      .on('pointerout', () => this.startButton.setStyle({fill: '#000'}))
-      .on('pointerdown', () => this.startButton.setStyle({fill: '#0ff'}))
-      .on('pointerup', () => {
-          this.startButton.setStyle({fill: '#ff0'});
-      });
+        .setInteractive({ useHandCursor: true })
+        .on('pointerover', () => this.startButton.setStyle({fill: '#ff0'}))
+        .on('pointerout', () => this.startButton.setStyle({fill: '#000'}))
+        .on('pointerdown', () => this.startButton.setStyle({fill: '#0ff'}))
+        .on('pointerup', () => {
+            this.startButton.setStyle({fill: '#ff0'});
+        });
 
       // Play Again Button
       this.playAgainButton = new Phaser.GameObjects.Text(this, 0, this.scale.height / 1.5, 'Play Again', {fontSize: 75, fill: '#000'});
       this.playAgainButton.x = (this.scale.width / 2) - (this.playAgainButton.width / 2);
       this.playAgainButton
-      .setVisible(false)
-      .setInteractive({ useHandCursor: true })
-      .on('pointerover', () => this.playAgainButton.setStyle({fill: '#ff0'}))
-      .on('pointerout', () => this.playAgainButton.setStyle({fill: '#000'}))
-      .on('pointerdown', () => this.playAgainButton.setStyle({fill: '#0ff'}))
-      .on('pointerup', () => {
-          this.playAgainButton.setStyle({fill: '#ff0'});
-      });
+        .setVisible(false)
+        .setInteractive({ useHandCursor: true })
+        .on('pointerover', () => this.playAgainButton.setStyle({fill: '#ff0'}))
+        .on('pointerout', () => this.playAgainButton.setStyle({fill: '#000'}))
+        .on('pointerdown', () => this.playAgainButton.setStyle({fill: '#0ff'}))
+        .on('pointerup', () => {
+            this.playAgainButton.setStyle({fill: '#ff0'});
+        });
 
       this.visibleObjects.push(this.background);
       this.add.existing(this.startButton);
       this.add.existing(this.playAgainButton);
 
       this.word = new Word(this);
-      this.snowman = new Snowman(this);
+      this.snowPal = new SnowPal(this);
   }
 
   /**
-   * Call to start snowman and reset images from initial state.
+   * Call to start Snow Pal and reset images from initial state.
    */
   start(wordToDisplay) {
       this.setVisible(true);
@@ -157,7 +157,7 @@ export default class Main extends Phaser.Scene {
       this.youLoseImage.setVisible(false);
       this.playAgainButton.setVisible(false);
       this.startButton.setVisible(false);
-      this.snowman.reset();
+      this.snowPal.reset();
       this.word.updateText(wordToDisplay);
   }
 
@@ -168,7 +168,7 @@ export default class Main extends Phaser.Scene {
 
   incorrectGuess() {
       this.wrongSound.play();
-      this.snowman.meltNextPart();
+      this.snowPal.meltNextPart();
   }
 
   win(wordToDisplay) {
@@ -179,13 +179,12 @@ export default class Main extends Phaser.Scene {
 
   lose() {
       this.loseSound.play();
-      this.snowman.meltNextPart();
+      this.snowPal.meltNextPart();
       this.displayGameOverScreen(false);
   }
 
   /**
-   * Finish game by setting invisible main stage (sky, word placeholder,
-   * and snowman) and displaying images of win or lose.
+   * Finish game by setting invisible main stage and displaying images of win or lose.
    * @param  {boolean} userWins true to display win image or false to display
    * false one.
    */
@@ -217,42 +216,42 @@ export default class Main extends Phaser.Scene {
 }
 
 /**
-* A snowman class represented on the screen.
+* A Snow Pal class represented on the screen.
 */
-class Snowman {
+class SnowPal {
   /**
-   * Snowman constructor.
+   * Snow Pal constructor.
    * @constructor
    * @param  {Phaser.Scene} scene instance with access to all objects.
    */
   constructor(scene) {
     const xPosition = scene.scale.width / 2;
     const yPosition = (scene.scale.height / 2) + 20;
-    this.leftArm = scene.physics.add.sprite(-150, 100, 'snowman', 'Left_Arm.png').setVisible(false);
-    this.rightArm = scene.physics.add.sprite(150, 100, 'snowman', 'Right_Arm.png').setVisible(false);
-    this.bottom = scene.physics.add.sprite(0, 225, 'snowman', 'Bottom.png').setVisible(false);
-    this.torso = scene.physics.add.sprite(0, 125, 'snowman', 'Torso.png').setVisible(false);
-    this.head = scene.physics.add.sprite(0, 0, 'snowman', 'Head.png').setVisible(false);
-    this.snowmanParts = [this.leftArm, this.rightArm, this.bottom, this.torso, this.head];
-    this.snowman = scene.add.container(xPosition, yPosition, this.snowmanParts);
+    this.leftArm = scene.physics.add.sprite(-150, 100, 'snow-pal', 'Left_Arm.png').setVisible(false);
+    this.rightArm = scene.physics.add.sprite(150, 100, 'snow-pal', 'Right_Arm.png').setVisible(false);
+    this.bottom = scene.physics.add.sprite(0, 225, 'snow-pal', 'Bottom.png').setVisible(false);
+    this.torso = scene.physics.add.sprite(0, 125, 'snow-pal', 'Torso.png').setVisible(false);
+    this.head = scene.physics.add.sprite(0, 0, 'snow-pal', 'Head.png').setVisible(false);
+    this.snowPalParts = [this.leftArm, this.rightArm, this.bottom, this.torso, this.head];
+    this.snowPal = scene.add.container(xPosition, yPosition, this.snowPalParts);
 
     this.visibleIndex = 0;
-    scene.visibleObjects = scene.visibleObjects.concat(this.snowmanParts);
+    scene.visibleObjects = scene.visibleObjects.concat(this.snowPalParts);
   }
 
   /**
-   * Melt the next part of the snowman.
+   * Melt the next part of Snow Pal.
    */
   meltNextPart() {
-    if (this.visibleIndex === (this.snowmanParts.length)) {
+    if (this.visibleIndex === (this.snowPalParts.length)) {
       return;
     }
-    this.snowmanParts[this.visibleIndex++].setVisible(false);
+    this.snowPalParts[this.visibleIndex++].setVisible(false);
   }
 
   reset() {
     this.visibleIndex = 0;
-    this.snowmanParts.forEach((part) => part.setVisible(true));
+    this.snowPalParts.forEach((part) => part.setVisible(true));
   }
 }
 

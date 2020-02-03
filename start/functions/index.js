@@ -24,19 +24,12 @@ const app = dialogflow({debug: true});
 
 const MAX_INCORRECT_GUESSES = 5;
 
-const DETAILED_INSTRUCTIONS =
+const INSTRUCTIONS =
 `Try to figure out the word by guessing letters that you think are in the word. ` +
-`Figure out the word before the snowman melts to win the game! After 5 ` +
-`incorrect guesses, the snowman melts and the game is over. ` +
+`Figure out the word before Snow Pal melts to win the game! After 5 ` +
+`incorrect guesses, Snow Pal melts and the game is over. ` +
 `If you know the word, you can say, for instance, “The word is penguin.” ` +
 `You can try another word, or ask for help.`;
-
-const BRIEF_INSTRUCTIONS = [
-  `Try guessing a letter in the word, or guess the entire word if you think you know what it is.`,
-  `Try guessing a letter in the word, or guess the entire word if you're feeling confident!`,
-  `Try guessing a letter in the word or guessing the word.`,
-  `Try guessing a letter in the word or guessing the word.`
-];
 
 const DICTIONARY = new Dictionary();
 
@@ -82,7 +75,7 @@ app.intent('Fallback', (conv) => {
  * @param  {conv} standard Actions on Google conversation object.
  */
 app.intent('Instructions', (conv) => {
-  conv.ask(`${DETAILED_INSTRUCTIONS}`);
+  conv.ask(`${INSTRUCTIONS}`);
   conv.ask(new HtmlResponse());
 });
 

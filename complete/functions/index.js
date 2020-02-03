@@ -24,17 +24,20 @@ const app = dialogflow({debug: true});
 
 const MAX_INCORRECT_GUESSES = 5;
 
-const INSTRUCTIONS = `After 5 incorrect guesses, the snowman melts and the game is over. ` +
+const INSTRUCTIONS =
+`Try to figure out the word by guessing letters that you think are in the word. ` +
+`Figure out the word before Snow Pal melts to win the game! After 5 ` +
+`incorrect guesses, Snow Pal melts and the game is over. ` +
 `If you know the word, you can say, for instance, “The word is penguin.” ` +
 `You can try another word, or ask for help.`;
 
 const PLAY_AGAIN_INSTRUCTIONS = `Would you like to  play again or quit?`;
 
 const WELCOME_BACK_GREETINGS = [
-  `Hey, you're back to Snowman!`,
-  `Welcome back to Snowman!`,
+  `Hey, you're back to Snow Pal!`,
+  `Welcome back to Snow Pal!`,
   `I'm glad you're back to play!`,
-  `Hey there, you made it! Let's play Snowman.`
+  `Hey there, you made it! Let's play Snow Pal.`
 ];
 
 const START_GAME_RESPONSES = [
@@ -91,7 +94,7 @@ app.intent('Welcome', (conv) => {
   if (conv.user.last.seen) {
     conv.ask(`${randomArrayItem(WELCOME_BACK_GREETINGS)} Would you like to start playing the game?`);
   } else {
-    conv.ask(`Welcome to Snowman! Would you like to start playing the game?`);
+    conv.ask(`Welcome to Snow Pal! Would you like to start playing the game?`);
   }
   // Replace `PROJECT_ID` with the ID for your project.
   conv.ask(new HtmlResponse({
@@ -103,7 +106,7 @@ app.intent('Start Game', (conv) => {
   if (conv.user.last.seen) {
     conv.ask(randomArrayItem(START_GAME_RESPONSES));
   } else {
-    conv.ask(`Try to figure out the word by guessing letters that you think are in the word. ${INSTRUCTIONS}`);
+    conv.ask(`${INSTRUCTIONS}`);
   }
   conv.data.incorrectGuesses = 0;
   // Generate new word to guess
@@ -123,7 +126,7 @@ app.intent('Fallback', (conv) => {
 });
 
 /**
- * Guess a letter or word from Snowman.
+ * Guess a letter or word from Snow Pal.
  *
  * @param  {conv} standard Actions on Google conversation object.
  * @param  {string} letterOrWord from A-Z.
@@ -131,13 +134,18 @@ app.intent('Fallback', (conv) => {
 app.intent('Guess Letter or Word', (conv, {letterOrWord}) => {
   conv.ask(`<speak>Let's see if ${letterOrWord} is there...<break time="2500ms"/></speak>`);
   letterOrWord = letterOrWord.toLocaleUpperCase();
+  // Check if the letter guessed is part of the correct word.
   let correctGuess = conv.data.correctWord.indexOf(letterOrWord) > -1;
   if (correctGuess) {
+    // Update the word to be displayed to the user with the newly guessed letter.
     updateWordToDisplay(conv, letterOrWord);
+    // Check if the correct guess will result in the user winning the game.
     const userHasWon = conv.data.wordToDisplay === conv.data.correctWord;
     if (userHasWon) {
       conv.ask(`<speak>${letterOrWord} is right. That spells ${conv.data.correctWord}! ${randomArrayItem(WIN_RESPONSES)} ` +
       `${PLAY_AGAIN_INSTRUCTIONS}</speak>`);
+      // User has won the game. Update game to WIN state, and pass the
+      // updated word to display to the front-end.
       conv.ask(new HtmlResponse({
         data: {
           state: 'WIN',
@@ -146,6 +154,8 @@ app.intent('Guess Letter or Word', (conv, {letterOrWord}) => {
       }));
     } else {
       conv.ask(`${letterOrWord} is right. ${randomArrayItem(RIGHT_RESPONSES)}`);
+      // User made a correct guess. Update game to CORRECT state, and pass the
+      // updated word to display to the front-end.
       conv.ask(new HtmlResponse({
         data: {
           state: 'CORRECT',
@@ -156,10 +166,12 @@ app.intent('Guess Letter or Word', (conv, {letterOrWord}) => {
   }
   else {
     conv.data.incorrectGuesses++;
+    // Check if the user has exceeded the maximum amount of max guesses allowed.
     const userHasLost = conv.data.incorrectGuesses >= MAX_INCORRECT_GUESSES
     if (userHasLost) {
       conv.ask(`<speak>Sorry, you lost. The word is ${conv.data.correctWord}.` +
         `${PLAY_AGAIN_INSTRUCTIONS}</speak>`);
+      // User has lost the game. Update game to LOSE state.
       conv.ask(new HtmlResponse({
         data: {
           state: 'LOSE',
@@ -167,6 +179,7 @@ app.intent('Guess Letter or Word', (conv, {letterOrWord}) => {
       }));
     } else {
       conv.ask(`${letterOrWord} is wrong. ${randomArrayItem(WRONG_RESPONSES)}`);
+      // User made an incorrect guess. Update game to INCORRECT state.
       conv.ask(new HtmlResponse({
         data: {
           state: 'INCORRECT',
@@ -182,9 +195,7 @@ app.intent('Guess Letter or Word', (conv, {letterOrWord}) => {
  * @param  {conv} standard Actions on Google conversation object.
  */
 app.intent('Instructions', (conv) => {
-  conv.ask(`Try guessing a letter that's in the word or guessing ` +
-  `the word itself. Figure out the word before the snowman is built to win ` +
-  `the game! ${INSTRUCTIONS}`);
+  conv.ask(`${INSTRUCTIONS}`);
   conv.ask(new HtmlResponse());
 });
 

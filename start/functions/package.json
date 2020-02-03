@@ -1,6 +1,6 @@
 {
-  "name": "snowman-canvas-sample-functions",
-  "description": "Snowman Actions on Google Interactive Canvas Sample Cloud Function",
+  "name": "snow-pal-canvas-sample-functions",
+  "description": "Snow Pal Actions on Google Interactive Canvas Sample Cloud Function",
   "license": "Apache-2.0",
   "private": true,
   "engines": {

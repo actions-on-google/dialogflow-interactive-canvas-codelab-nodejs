@@ -23,7 +23,7 @@ const words = ['Sombrero', 'Google', 'Mountain', 'California',
 
 const clone = (obj) => JSON.parse(JSON.stringify(obj));
 /**
- * Dictionary of words to be used by Snowman.
+ * Dictionary of words to be used by Snow Pal.
  */
 module.exports = class Dictionary {
   /**
@@ -38,7 +38,7 @@ module.exports = class Dictionary {
   /**
    * Retrieve words from the dictionary.
    *
-   * @return {string} an unused word to be used by Snowman placeholder.
+   * @return {string} an unused word to be used by Snow Pal placeholder.
    */
   getWord() {
     if (this.entries.length === 0) {
