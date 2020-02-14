@@ -1,6 +1,12 @@
-# Actions on Google: Snow Pal Interactive Canvas Sample
+# Actions on Google: Interactive Canvas Codelab
 
-This sample demonstrates how to create an [Interactive Canvas](https://developers.google.com/assistant/interactivecanvas/) experience using Actions on Google for the Google Assistant. It uses the [Node.js client library](https://github.com/actions-on-google/actions-on-google-nodejs) and is deployed on [Cloud Functions for Firebase](https://firebase.google.com/docs/functions/) and [Firebase Hosting](https://firebase.google.com/docs/hosting).
+These samples serves as the completed source code for the [Google Assistant Interactive Canvas codelab](https://codelabs.developers.google.com/?cat=Assistant).
+The `start/` directory should be used as a starting point for the codelab.
+The `complete/` directory can be used as a reference for the completed implementation of the codelab.
+
+For detailed instructions on using this code, refer to the
+[Google Assistant Interactive Canvas codelab](https://codelabs.developers.google.com/?cat=Assistant).
+The following steps explain how to deploy the code found in the `complete/` directory.
 
 ## Setup Instructions
 ### Prerequisites
@@ -17,8 +23,7 @@ This sample demonstrates how to create an [Interactive Canvas](https://developer
     1. Under **Category**, select **Games & fun**
     1. Under **Interactive Canvas** *Do your Actions use Interactive Canvas?*, check **Yes**
 1. Click **Develop** in the top menu. Then, click **Actions** > **Add Your First Action** > **Custom intent** > **BUILD** (this will bring you to the Dialogflow console) > Select language and time zone > **CREATE**.
-1. In the Dialogflow console, go to **Settings** ⚙ > **Export and Import** > **Restore from zip** using the `agent.zip` in this sample's directory.
-
+1. In the Dialogflow console, go to **Settings** ⚙ > **Export and Import** > **Restore from zip** using the `agent.zip` in this sample's `complete/` directory.
 
 #### Firebase Deployment
 1. On your local machine, in the `functions` directory, run `npm install`
@@ -35,7 +40,6 @@ This sample demonstrates how to create an [Interactive Canvas](https://developer
 ### Running this Sample
 + You can test your Action on any Google Assistant-enabled device on which the Assistant is signed into the same account used to create this project. Just say or type, “OK Google, talk to my test app”.
 + You can also use the Actions on Google Console simulator to test most features and preview on-device behavior.
-+ To show the debug overlay, by saying the utterance `toggle captions` while playing the game.
 
 ## References & Issues
 + Questions? Go to [StackOverflow](https://stackoverflow.com/questions/tagged/actions-on-google), [Assistant Developer Community on Reddit](https://www.reddit.com/r/GoogleAssistantDev/) or [Support](https://developers.google.com/assistant/support).

@@ -26,5 +26,8 @@ class Assistant {
   constructor(scene) {
     this.canvas = window.interactiveCanvas;
     this.gameScene = scene;
+    /* ADD CODE HERE to update command map: */
+
+    /* END */
   }
 }

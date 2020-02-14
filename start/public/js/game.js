@@ -125,6 +125,9 @@ export default class Main extends Phaser.Scene {
         .on('pointerdown', () => this.startButton.setStyle({fill: '#0ff'}))
         .on('pointerup', () => {
             this.startButton.setStyle({fill: '#ff0'});
+            /* ADD CODE HERE to use sendTextQuery(): */
+
+            /* END */
         });
 
       // Play Again Button
@@ -138,6 +141,9 @@ export default class Main extends Phaser.Scene {
         .on('pointerdown', () => this.playAgainButton.setStyle({fill: '#0ff'}))
         .on('pointerup', () => {
             this.playAgainButton.setStyle({fill: '#ff0'});
+            /* ADD CODE HERE to use sendTextQuery() for 'Play again' button: */
+
+            /* END */
         });
 
       this.visibleObjects.push(this.background);
