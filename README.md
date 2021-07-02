@@ -1,59 +1,52 @@
-# Actions on Google: Interactive Canvas Codelab
+# Actions on Google: Snow Pal Interactive Canvas Sample
 
-These samples serves as the completed source code for the [Google Assistant Interactive Canvas codelab](https://codelabs.developers.google.com/?cat=Assistant).
-The `start/` directory should be used as a starting point for the codelab.
-The `complete/` directory can be used as a reference for the completed implementation of the codelab.
+These samples serves as the source code for the [Actions on Google Interactive Canvas codelab](https://codelabs.developers.google.com/?cat=Assistant).
+The `start` directory should be used as a starting point for the codelab.
+The `complete` directory can be used as a reference for the completed implementation of the codelab.
 
 For detailed instructions on using this code, refer to the
-[Google Assistant Interactive Canvas codelab](https://codelabs.developers.google.com/?cat=Assistant).
-The following steps explain how to deploy the code found in the `complete/` directory.
+[Actions on Google Interactive Canvas codelab](https://codelabs.developers.google.com/?cat=Assistant).
+The following steps explain how to deploy the code found in the `start` directory.
 
-## Setup Instructions
+
+:warning: These code samples were built using Dialogflow. We now recommend using [Actions Builder or the Actions SDK](https://developers.google.com/assistant/conversational/overview) to develop, test, and deploy Conversational Actions.
+
 ### Prerequisites
 1. Node.js and NPM
     + We recommend installing using [nvm for Linux/Mac](https://github.com/creationix/nvm) and [nvm-windows for Windows](https://github.com/coreybutler/nvm-windows)
 1. Install the [Firebase CLI](https://developers.google.com/assistant/actions/dialogflow/deploy-fulfillment)
-    + We recommend using MAJOR version `6` with `6.5.0` or above, `npm install -g firebase-tools@^6.5.0`
+    + We recommend using MAJOR version `8` , `npm install -g firebase-tools@^8.0.0`
     + Run `firebase login` with your Google account
 
-### Configuration
+### Setup
 #### Actions Console
-1. From the [Actions on Google Console](https://console.actions.google.com/), add a new project > **Create Project** > under **More options** > **Conversational**
-1. Click **Deploy** in the top menu. Then, click **Additional information**.
-    1. Under **Category**, select **Games & fun**
-    1. Under **Interactive Canvas** *Do your Actions use Interactive Canvas?*, check **Yes**
-1. Click **Develop** in the top menu. Then, click **Actions** > **Add Your First Action** > **Custom intent** > **BUILD** (this will bring you to the Dialogflow console) > Select language and time zone > **CREATE**.
-1. In the Dialogflow console, go to **Settings** ⚙ > **Export and Import** > **Restore from zip** using the `agent.zip` in this sample's `complete/` directory.
+1. From the [Actions on Google Console](https://console.actions.google.com/), **New project** > **Create project** > under **What kind of Action do you want to build?** > **Game** > **Blank project for smart display**
 
-#### Firebase Deployment
-1. On your local machine, in the `functions` directory, run `npm install`
-1. Run `firebase deploy --project {PROJECT_ID}` to deploy the function and hosting
-    + To find your **Project ID**: In [Dialogflow console](https://console.dialogflow.com/) under **Settings** ⚙ > **General** tab > **Project ID**.
+#### Firebase Hosting Deployment
+1. Run `firebase deploy --project {PROJECT_ID} --only hosting` to deploy the web app to Firebase Hosting
+   + To find your Project ID: In the Actions Console console for your project, navigate to ⋮ > Project settings > Project ID.
 
-#### Dialogflow Console
-1. Return to the [Dialogflow Console](https://console.dialogflow.com) > select **Fulfillment** > **Enable** Webhook > Set **URL** to the **Function URL** that was returned after the deploy command > **SAVE**.
-    ```
-    Function URL (dialogflowFirebaseFulfillment): https://${REGION}-${PROJECT_ID}.cloudfunctions.net/dialogflowFirebaseFulfillment
-    ```
-1. From the left navigation menu, click **Integrations** > **Integration Settings** under Google Assistant > Enable **Auto-preview changes** >  **Test** to open the Actions on Google simulator then say or type `Talk to my test app`.
+#### Actions CLI
+1. Install the [Actions CLI](https://developers.google.com/assistant/actionssdk/gactions)
+1. Navigate to `sdk/settings/settings.yaml`, and replace `<PROJECT_ID>` with your project ID
+1. Navigate to `sdk/custom/global/actions.intent.MAIN.yaml`, and replace `<PROJECT_ID>` with your project ID
+1. Navigate to `sdk/custom/global/actions.intent.PLAY_GAME.yaml`, and replace `<PROJECT_ID>` with your project ID
+1. Run `gactions login` to login to your account.
+1. Run `gactions push` to push your project.
+1. Run `gactions deploy preview` to deploy your project.
 
 ### Running this Sample
 + You can test your Action on any Google Assistant-enabled device on which the Assistant is signed into the same account used to create this project. Just say or type, “OK Google, talk to my test app”.
 + You can also use the Actions on Google Console simulator to test most features and preview on-device behavior.
 
 ## References & Issues
-+ Questions? Go to [StackOverflow](https://stackoverflow.com/questions/tagged/actions-on-google), [Assistant Developer Community on Reddit](https://www.reddit.com/r/GoogleAssistantDev/) or [Support](https://developers.google.com/assistant/support).
++ Questions? Go to [StackOverflow](https://stackoverflow.com/questions/tagged/actions-on-google) or the [Assistant Developer Community on Reddit](https://www.reddit.com/r/GoogleAssistantDev/).
 + For bugs, please report an issue on Github.
-+ Actions on Google [Interactive Canvas Documentation](https://developers.google.com/assistant/interactivecanvas/)
 + Actions on Google [Documentation](https://developers.google.com/assistant)
 + Actions on Google [Codelabs](https://codelabs.developers.google.com/?cat=Assistant)
-+ [Webhook Boilerplate Template](https://github.com/actions-on-google/dialogflow-webhook-boilerplate-nodejs) for Actions on Google
 
-## Make Contributions
+## Contributing
 Please read and follow the steps in the [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## License
 See [LICENSE](LICENSE).
-
-## Terms
-Your use of this sample is subject to, and by using or downloading the sample files you agree to comply with, the [Google APIs Terms of Service](https://developers.google.com/terms/).
